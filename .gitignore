@@ -1,0 +1,64 @@
+# Environments and local configuration
+.venv/
+venv/
+.env
+.env.*
+config.local.sh
+
+# Model, calibration, and experiment outputs
+artifacts/
+calibration/
+caches/
+data/
+logs/
+results/
+results_*/
+checkpoints/
+outputs/
+wandb/
+
+# Large generated tensors and traces
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.npy
+*.npz
+*.jsonl
+*.pkl
+*.pickle
+*.tar
+*.tar.gz
+*.zip
+
+# Runtime and compiler caches
+**/__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+**/triton_cache/
+
+# Logs and profiling output
+*.log
+*.out
+*.err
+*.nsys-rep
+*.sqlite
+core
+core.*
+
+# Editor and operating-system files
+.DS_Store
+._*
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Local backup files
+*.bak
+*.orig

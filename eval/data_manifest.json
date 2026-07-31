@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "datasets": {
+    "aime24": {
+      "kind": "huggingface",
+      "repo_id": "HuggingFaceH4/aime_2024",
+      "repo_type": "dataset",
+      "revision": "2fe88a2f1091d5048c0f36abc874fb997b3dd99a",
+      "filename": "data/train-00000-of-00001.parquet",
+      "sha256": "26139847601a5037c237d5928b195e7260ca8074cf4f264b794af42847f79ccf",
+      "expected_examples": 30
+    },
+    "aime25": {
+      "kind": "huggingface",
+      "repo_id": "yentinglin/aime_2025",
+      "repo_type": "dataset",
+      "revision": "6f71d77b0b89b9dabe07ab466c51df33f514df7f",
+      "filename": "data/train-00000-of-00001-243207c6c994e1bd.parquet",
+      "sha256": "b74b507c1a4de7c9fafd2c83dfe2ef7b80579bcf0e0a754a1765db0f21c205fc",
+      "expected_examples": 30
+    },
+    "gpqa_diamond": {
+      "kind": "https",
+      "url": "https://openaipublic.blob.core.windows.net/simple-evals/gpqa_diamond.csv",
+      "cache_name": "gpqa_diamond.csv",
+      "sha256": "41d1213cd7a4998605a26c2798500652572007161b3a92817ba46b35befcd305",
+      "expected_examples": 198
+    },
+    "lcb_v6": {
+      "kind": "huggingface",
+      "repo_id": "livecodebench/code_generation_lite",
+      "repo_type": "dataset",
+      "revision": "0fe84c3912ea0c4d4a78037083943e8f0c4dd505",
+      "filename": "test6.jsonl",
+      "sha256": "bb4c364f71921c4495a6ad15abe1a927350b720009f4933e2e71f8af0f6fd1f5",
+      "expected_examples": 175
+    },
+    "mbpp_plus": {
+      "kind": "https_gzip",
+      "url": "https://github.com/evalplus/mbppplus_release/releases/download/v0.2.0/MbppPlus.jsonl.gz",
+      "cache_name": "MbppPlus-v0.2.0.jsonl.gz",
+      "sha256": "af43697e8791c4c149bdfd6b489d8b5412507551ac20e28a439f650b8225db63",
+      "content_name": "MbppPlus-v0.2.0.jsonl",
+      "content_sha256": "b54e762755248ca411b523c917fa9f93c07b5ff2966bf60b3917b853926a3dad",
+      "content_md5": "ee43ecabebf20deef4bb776a405ac5b1",
+      "evalplus_version": "0.3.1",
+      "dataset_version": "v0.2.0",
+      "expected_examples": 378
+    }
+  }
+}
