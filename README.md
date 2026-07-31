@@ -47,49 +47,62 @@ BPE denotes the effective number of bits per KV-cache element.
 
 ### Setup
 
+The following commands target Ubuntu 24.04 with eight visible NVIDIA GPUs and
+the CUDA 12.x Toolkit, including `nvcc`. Reserve at least 80 GB of free disk
+space for the Python environment, Qwen3-8B weights, and calibration traces.
+
 ```bash
 sudo apt-get update
-sudo apt-get install -y build-essential libnuma1
+sudo apt-get install -y build-essential curl libnuma1 python3-dev python3-venv
 
-python3.11 -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 bash setup.sh
 ```
 
-### Calibration
+### Qwen3-8B OSCAR + OptR on AIME25
+
+Prepare the OSCAR rotation, key mean, and calibration traces, then optimize the
+output-aware rotation:
 
 ```bash
 bash scripts/qwen3-8b.sh prepare
-bash scripts/qwen3-8b.sh calibrate all
+bash scripts/qwen3-8b.sh calibrate oscar
 ```
 
-### Evaluation
+Run the five-seed AIME25 evaluation reported in the paper:
 
 ```bash
-# One benchmark
 SEEDS=5 bash scripts/qwen3-8b.sh eval oscar_optr aime25
+```
 
-# All five benchmarks
-SEEDS=5 bash scripts/qwen3-8b.sh eval-all oscar_optr
+For a short check of the calibrated INT2 server before the full run, evaluate
+one AIME25 example:
+
+```bash
+SEEDS=1 NUM_EXAMPLES=1 MAX_NEW_TOKENS=128 \
+  bash scripts/qwen3-8b.sh eval oscar_optr aime25
 ```
 
 Use `bf16`, `naive_int2`, `quarot`, `quarot_optr`, `oscar`, or `oscar_optr`
 as the evaluation mode. The benchmark keys are `aime24`, `aime25`, `gpqa`,
-`mbpp_plus`, and `lcb_v6`. For the other models, replace `qwen3-8b.sh` with
-`qwen3-4b-thinking-2507.sh` or `phi-4-reasoning-plus.sh`.
+`mbpp_plus`, and `lcb_v6`. Use `eval-all` in place of `eval <mode> <task>` to
+run all five benchmarks. For the other models, replace `qwen3-8b.sh` with
+`qwen3-4b-thinking-2507.sh` or `phi-4-reasoning-plus.sh` and repeat the same
+preparation and calibration steps.
 
 ## Note
 
-- OptR requires Linux, Python 3.11 or newer, NVIDIA GPUs, and the CUDA 12.x
-  Toolkit including `nvcc`. Model scripts use eight GPUs by default.
+- Model scripts use GPUs 0--7 with tensor parallelism by default. When running
+  inside Docker, launch the container with `--gpus all --ipc=host`.
 - Model weights are downloaded from Hugging Face on first use. Setting
   `HF_TOKEN` is recommended.
 - INT2 evaluation requires the model-specific artifacts produced by the
   calibration commands under `artifacts/<model-tag>/`.
 - LiveCodeBench requires Docker or Podman. MBPP+ should be run in a disposable
   environment.
-- Dependencies and benchmark data are versioned in `requirements.txt` and
-  `eval/data_manifest.json`.
+- Core Python packages and benchmark data revisions are recorded in
+  `requirements.txt` and `eval/data_manifest.json`.
 - OptR is released under the Apache License 2.0. Bundled third-party code
   retains its original license.
 

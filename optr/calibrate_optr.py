@@ -149,7 +149,7 @@ def main():
     ap.add_argument("--group-size", type=int, default=128)
     ap.add_argument("--clip-k", type=float, default=0.96)
     ap.add_argument("--clip-v", type=float, default=0.92)
-    ap.add_argument("--calib", default="2,8")
+    ap.add_argument("--calib", default="3,4")
     ap.add_argument("--held", default="10,12")
     ap.add_argument("--prefix", type=int, default=64)
     ap.add_argument("--recent", type=int, default=256)
@@ -219,20 +219,16 @@ def main():
         ev = load_layer_entry(k_state, li).get("eigenvalues")
         evv = load_layer_entry(v_state, li).get("eigenvalues")
         if not cs or not hs:
-            kout["layers"][li] = {
-                "layer_id": li,
-                "rotation": Rk_base.cpu().float().contiguous(),
-                "eigenvalues": ev,
-                "kept_heads": [],
-            }
-            vout["layers"][li] = {
-                "layer_id": li,
-                "rotation": Rv_base.cpu().float().contiguous(),
-                "eigenvalues": evv,
-                "kept_heads": [],
-            }
-            print(f"{li:3d} {kvh:3d} {'skip':>10s}", flush=True)
-            continue
+            missing = []
+            if not cs:
+                missing.append(f"calibration chunks {a.calib}")
+            if not hs:
+                missing.append(f"held-out chunks {a.held}")
+            minimum_length = a.prefix + a.recent + 8
+            raise RuntimeError(
+                f"layer {li} has no usable sequences in {' and '.join(missing)}; "
+                f"each sequence must contain at least {minimum_length} tokens"
+            )
 
         # K phase.
         with torch.no_grad():

@@ -46,7 +46,7 @@ python "${ROOT}/optr/calibrate_optr.py" \
   --group-size "${GROUP_SIZE:-128}" \
   --clip-k "${K_CLIP:-0.96}" \
   --clip-v "${V_CLIP:-0.92}" \
-  --calib "${CALIB_CHUNKS:-2,8}" \
+  --calib "${CALIB_CHUNKS:-3,4}" \
   --held "${HELDOUT_CHUNKS:-10,12}" \
   --prefix "${SINK_TOKENS:-64}" \
   --recent "${RECENT_TOKENS:-256}" \
