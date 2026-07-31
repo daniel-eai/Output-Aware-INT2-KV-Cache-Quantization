@@ -1,4 +1,4 @@
-# OptR: Output-Aware Rotation for INT2 KV-Cache Quantization
+# Output-Aware Rotation for INT2 KV-Cache Quantization
 
 This is the official implementation of **OptR: Output-Aware Rotation for INT2
 KV-Cache Quantization**. The repository contains calibration, serving, and
