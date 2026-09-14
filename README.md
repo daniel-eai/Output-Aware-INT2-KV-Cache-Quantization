@@ -108,6 +108,19 @@ preparation and calibration steps.
 
 ## Citation
 
+```bibtex
+@misc{yun2026outputawarerotationint2kvcache,
+      title={Output-Aware Rotation for INT2 KV-Cache Quantization}, 
+      author={Vincent-Daniel Yun and Woosang Lim and Minsoo Cheong and Sunwoo Lee and Murali Annavaram and Sai Praneeth Karimireddy and Sungjoo Yoo},
+      year={2026},
+      eprint={2608.02691},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2608.02691}, 
+}
+```
+
+
 This repository is built on the official OSCAR codebase.
 
 ```bibtex
